@@ -7,7 +7,6 @@ from openpyxl.xml.constants import ACTIVEX, XLSX
 from openpyxl.styles import PatternFill
 from bs4 import BeautifulSoup
 from selenium import webdriver
-from selenium.webdriver.common.utils import keys_to_typing
 from selenium.webdriver.chrome.options import Options
 import time
 import random
@@ -108,3 +107,5 @@ for item in taglist:
     '''
 
     print(item)
+
+# %%
