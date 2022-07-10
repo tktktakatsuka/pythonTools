@@ -16,7 +16,6 @@ import random
 import configparser
 import datetime
 
-#%%
 ''''
 configsetting
 '''
@@ -25,12 +24,13 @@ config_ini.read('config.ini', encoding='utf-8')
 var2 = config_ini.get('DEFAULT', 'Driverpath')
 var3 = config_ini.get('DEFAULT', 'InputWb')
 var4 = config_ini.get('DEFAULT', 'Option')
-#%%
+var5 = config_ini.get('DEFAULT', 'UpdateSheetName')
+
 '''
 excellsetting
 '''
 inputWb = openpyxl.load_workbook(var3,keep_vba=True)
-inputWs = inputWb[ "調査結果" ]
+inputWs = inputWb[ var5 ]
 num     = inputWs.max_row
 yoko    = 0
 #reserchkaisu = inputWs.cell(row = 3, column = 11).value
@@ -49,7 +49,7 @@ options = webdriver.ChromeOptions()
 options.add_argument('--user-agent=' + user_agent[random.randrange(0, len(user_agent), 1)])
 options.add_argument(var4)
 driver = webdriver.Chromedriver = webdriver.Chrome(executable_path= var2 , chrome_options=options)
-
+ 
 
 '''
 URL遷移
@@ -137,7 +137,7 @@ for item in taglist:
 終了処理
 '''
 #上書きで保存
-inputWb.save(var3)
+
 driver.quit()
 #ここまでoutputresercher
 
@@ -252,11 +252,6 @@ for Q in range(inputWs.max_row + 1):
 '''
 重複作業後番号を記述
 '''
-
-#別名で保存
-inputWb.save(var3)
-
-
 #連番を降る
 list = list(range(num +1 ))
 #print(list)
@@ -294,4 +289,3 @@ print('処理を終了します。')
 <p class="price">￥4,752</p>
 </div>
 '''
-# %%
