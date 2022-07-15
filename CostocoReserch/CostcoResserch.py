@@ -33,7 +33,7 @@ driversetting
 config_ini = configparser.ConfigParser()
 base = os.path.dirname(os.path.abspath(__file__))
 path = os.getcwd()
-config_ini.read(path+'\\'+'Costco.ini', encoding='utf-8')
+config_ini.read(path+'\\'+'Google.ini', encoding='utf-8')
 var2 = config_ini.get('DEFAULT', 'Driverpath')
 options = Options()
 user_agent = ['Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
