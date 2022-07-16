@@ -1,4 +1,5 @@
 from ast import Not
+from tkinter import messagebox
 import pyautogui
 import os
 # resuests モジュールをインポート
@@ -21,7 +22,54 @@ from selenium.webdriver.common.action_chains import ActionChains
 import re
 from tkinter import *
 from tkinter import ttk
+from tkinter import filedialog
+import tkinter.font as f
+'''
 
+
+'''
+# button1クリック時の処理
+def button1_clicked():
+    fTyp = [("","*")]
+    iDir = os.path.abspath(os.path.dirname(__file__))
+    filepath = filedialog.askopenfilename(filetypes = fTyp,initialdir = iDir)
+    file1.set(filepath)
+
+
+# フォルダ指定の関数
+def dirdialog_clicked():
+    iDir = os.path.abspath(os.path.dirname(__file__))
+    iDirPath = filedialog.askdirectory(initialdir = iDir)
+    entry1.set(iDirPath)
+
+# ファイル指定の関数
+def filedialog_clicked():
+    fTyp = [("", "*")]
+    iFile = os.path.abspath(os.path.dirname(__file__))
+    iFilePath = filedialog.askopenfilename(filetype = fTyp, initialdir = iFile)
+    entry2.set(iFilePath)
+
+# 実行ボタン押下時の実行関数
+def conductMain():
+    text = ""
+
+    dirPath = entry1.get()
+    filePath = entry2.get()
+    if dirPath:
+        text += "フォルダパス：" + dirPath + "\n"
+    if filePath:
+        text += "ファイルパス：" + filePath
+
+    if text:
+        messagebox.showinfo("info", text)
+    else:
+        messagebox.showerror("error", "パスの指定がありません。")
+
+
+
+'''
+スクレイピングする関数
+'''
 def research(word,var3):
     ''''
     configsetting
@@ -211,38 +259,41 @@ def research(word,var3):
 
 if __name__ == '__main__':
     root = Tk()
-    root.title('My First App')
-
-    # ウィジェットの作成
-    frame1 = ttk.Frame(root, padding=16)
-    label1 = ttk.Label(frame1, text='検索キーワードを設定してください')
-    word = StringVar()
-    entry1 = ttk.Entry(frame1, textvariable= word)
-
+    root.title('goolgle店舗情報出力')
+    root.geometry("600x300+600+300")
     
 
-    frame2 = ttk.Frame(root, padding=16)
-    label2 = ttk.Label(frame1, text='出力先のフォルダパスを指定してください（.xlsx）')
-    output = StringVar()
-    entry2 = ttk.Entry(frame1, textvariable=output)
-
-
-
-    button = ttk.Button(
-        frame1,
-        text='OK',
-        command=lambda: research(word.get(),output.get()))
-
-    # レイアウト
+    #フレームの作成
+    frame1 = ttk.Frame(root, padding=16)
     frame1.pack()
-    label1.pack()
-    entry1.pack()
-    # レイアウト
+    #検索キーワード作成
+    researchlabel = ttk.Label(frame1, text='検索キーワードを設定してください')
+    researchlabel.pack(fill = 'x', padx=60, side = 'left')
+    word = StringVar()
+    entry1 = ttk.Entry(frame1, textvariable= word,width=50)
+    entry1.pack(fill = 'x', padx=20, side = 'left')
+
+    
+    #参照するファイルパスの作成
+    frame2 = ttk.Frame(root, padding=16)
     frame2.pack()
-    label2.pack()
-    entry2.pack()
-#
-    button.pack()
+    label2 = ttk.Label(frame2, text='出力先のフォルダパスを指定してください（.xlsx）')
+    label2.pack(fill = 'x', padx=20, side = 'left')
+    output = StringVar()
+    entry2 = ttk.Entry(frame2, textvariable=output,width=50)
+    entry2.pack(fill = 'x', padx=20, side = 'left')
+
+
+    #実行ボタンの作成
+    frame3 = ttk.Frame(root, padding=16)
+    frame3.pack()
+    button = ttk.Button(frame3,text='OK',command=lambda: research(word.get(),output.get()))
+    button.pack(fill = 'x', padx=20, side = 'left')
+
+
+    # キャンセルボタンの設置
+    button2 = ttk.Button(frame3, text=("閉じる"), command=quit)
+    button2.pack(fill = 'x', padx=20, side = 'left')    
 
 
     # ウィンドウの表示開始
